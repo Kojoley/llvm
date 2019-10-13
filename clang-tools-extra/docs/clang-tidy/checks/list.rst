@@ -229,6 +229,7 @@ Clang-Tidy Checks
    `modernize-concat-nested-namespaces <modernize-concat-nested-namespaces.html>`_, "Yes"
    `modernize-deprecated-headers <modernize-deprecated-headers.html>`_, "Yes"
    `modernize-deprecated-ios-base-aliases <modernize-deprecated-ios-base-aliases.html>`_, "Yes"
+   `modernize-deprecated-iterator-base <modernize-deprecated-iterator-base.html>`_, "Yes"
    `modernize-loop-convert <modernize-loop-convert.html>`_, "Yes"
    `modernize-make-shared <modernize-make-shared.html>`_, "Yes"
    `modernize-make-unique <modernize-make-unique.html>`_, "Yes"

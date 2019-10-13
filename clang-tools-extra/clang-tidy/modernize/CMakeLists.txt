@@ -9,6 +9,7 @@ add_clang_library(clangTidyModernizeModule
   ConcatNestedNamespacesCheck.cpp
   DeprecatedHeadersCheck.cpp
   DeprecatedIosBaseAliasesCheck.cpp
+  DeprecatedIteratorBaseCheck.cpp
   LoopConvertCheck.cpp
   LoopConvertUtils.cpp
   MakeSharedCheck.cpp

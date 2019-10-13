@@ -91,6 +91,12 @@ New checks
   variables and function parameters only.
 
 
+- New :doc:`modernize-deprecated-iterator-base
+  <clang-tidy/checks/modernize-deprecated-iterator-base>` check.
+
+  Finds deprecated in C++17 inheritance from ``std::iterator`` and replaces it
+  with type aliases.
+
 New check aliases
 ^^^^^^^^^^^^^^^^^
 

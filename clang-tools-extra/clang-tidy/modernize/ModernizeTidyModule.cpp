@@ -14,6 +14,7 @@
 #include "ConcatNestedNamespacesCheck.h"
 #include "DeprecatedHeadersCheck.h"
 #include "DeprecatedIosBaseAliasesCheck.h"
+#include "DeprecatedIteratorBaseCheck.h"
 #include "LoopConvertCheck.h"
 #include "MakeSharedCheck.h"
 #include "MakeUniqueCheck.h"
@@ -58,6 +59,8 @@ public:
         "modernize-deprecated-headers");
     CheckFactories.registerCheck<DeprecatedIosBaseAliasesCheck>(
         "modernize-deprecated-ios-base-aliases");
+    CheckFactories.registerCheck<DeprecatedIteratorBaseCheck>(
+        "modernize-deprecated-iterator-base");
     CheckFactories.registerCheck<LoopConvertCheck>("modernize-loop-convert");
     CheckFactories.registerCheck<MakeSharedCheck>("modernize-make-shared");
     CheckFactories.registerCheck<MakeUniqueCheck>("modernize-make-unique");
