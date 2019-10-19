@@ -138,6 +138,7 @@ private:
     NKI_QualType,
     NKI_TypeLoc,
     NKI_LastKindWithoutPointerIdentity = NKI_TypeLoc,
+    NKI_CXXBaseSpecifier,
     NKI_CXXCtorInitializer,
     NKI_NestedNameSpecifier,
     NKI_Decl,
@@ -189,6 +190,7 @@ private:
   template <> struct ASTNodeKind::KindToKindId<Class> {                        \
     static const NodeKindId Id = NKI_##Class;                                  \
   };
+KIND_TO_KIND_ID(CXXBaseSpecifier)
 KIND_TO_KIND_ID(CXXCtorInitializer)
 KIND_TO_KIND_ID(TemplateArgument)
 KIND_TO_KIND_ID(TemplateName)
@@ -486,6 +488,10 @@ struct DynTypedNode::BaseConverter<
 template <>
 struct DynTypedNode::BaseConverter<
     NestedNameSpecifier, void> : public PtrConverter<NestedNameSpecifier> {};
+
+template <>
+struct DynTypedNode::BaseConverter<
+    CXXBaseSpecifier, void> : public PtrConverter<CXXBaseSpecifier> {};
 
 template <>
 struct DynTypedNode::BaseConverter<

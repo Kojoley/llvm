@@ -678,6 +678,29 @@ TEST(DeclarationMatcher, ObjCClassIsDerived) {
       "@interface Z : A @end", ZIsDirectlyDerivedFromX));
 }
 
+TEST(DeclarationMatcher, ClassHasBase) {
+  DeclarationMatcher ClassHasAnyBase =
+      cxxRecordDecl(hasBase(cxxBaseSpecifier()));
+  EXPECT_TRUE(notMatches("class X {};", ClassHasAnyBase));
+  EXPECT_TRUE(matches("class X {}; class Y : X {};", ClassHasAnyBase));
+
+  TypeMatcher ClassX = asString("class X");
+  CXXBaseSpecifierMatcher BaseClassX = cxxBaseSpecifier(hasType(ClassX));
+  DeclarationMatcher ClassHasBaseClassX = cxxRecordDecl(hasBase(BaseClassX));
+  EXPECT_TRUE(matches("class X {}; class Y {}; class Z : X, Y {};",
+                      ClassHasBaseClassX));
+  EXPECT_TRUE(matches("class X {}; class Y {}; class Z : Y, X {};",
+                      ClassHasBaseClassX));
+  EXPECT_TRUE(notMatches("class W {}; class Y {}; class Z : W, Y {};",
+                         ClassHasBaseClassX));
+  DeclarationMatcher ClassZHasBaseClassX =
+      cxxRecordDecl(hasName("Z"), hasBase(BaseClassX));
+  EXPECT_TRUE(matches("class X {}; class Y : X {}; class Z : X {};",
+                      ClassZHasBaseClassX));
+  EXPECT_TRUE(notMatches("class X {}; class Y : X {}; class Z : Y {};",
+                         ClassZHasBaseClassX));
+}
+
 TEST(DeclarationMatcher, IsLambda) {
   const auto IsLambda = cxxMethodDecl(ofClass(cxxRecordDecl(isLambda())));
   EXPECT_TRUE(matches("auto x = []{};", IsLambda));

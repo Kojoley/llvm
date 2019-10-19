@@ -112,6 +112,7 @@ TEST(ASTNodeKind, Name) {
   VERIFY_NAME(NestedNameSpecifierLoc);
   VERIFY_NAME(QualType);
   VERIFY_NAME(TypeLoc);
+  VERIFY_NAME(CXXBaseSpecifier);
   VERIFY_NAME(CXXCtorInitializer);
   VERIFY_NAME(NestedNameSpecifier);
   VERIFY_NAME(Decl);
@@ -140,6 +141,15 @@ TEST(DynTypedNode, TypeLocSourceRange) {
   Verifier.expectRange(1, 1, 1, 8);
   EXPECT_TRUE(Verifier.match("void f() {}", typeLoc(loc(functionType()))));
 }
+
+#if 0 // Cannot be used as a top level matcher at the time
+TEST(DynTypedNode, CXXBaseSpecifierSourceRange) {
+  RangeVerifier<DynTypedNode> Verifier;
+  Verifier.expectRange(1, 23, 1, 39);
+  EXPECT_TRUE(Verifier.match("class B {}; class C : public virtual B {};",
+                             cxxBaseSpecifier()));
+}
+#endif
 
 TEST(DynTypedNode, NNSLocSourceRange) {
   RangeVerifier<DynTypedNode> Verifier;

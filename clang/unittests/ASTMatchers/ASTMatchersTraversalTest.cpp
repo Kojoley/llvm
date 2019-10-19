@@ -320,6 +320,14 @@ TEST(HasType, TakesQualTypeMatcherAndMatchesValueDecl) {
             varDecl(hasType(pointsTo(ClassX)))));
 }
 
+TEST(HasType, TakesQualTypeMatcherAndMatchesCXXBaseSpecifier) {
+  TypeMatcher ClassX = hasDeclaration(recordDecl(hasName("X")));
+  CXXBaseSpecifierMatcher BaseClassX = cxxBaseSpecifier(hasType(ClassX));
+  DeclarationMatcher ClassHasBaseClassX = cxxRecordDecl(hasBase(BaseClassX));
+  EXPECT_TRUE(matches("class X {}; class Y : X {};", ClassHasBaseClassX));
+  EXPECT_TRUE(notMatches("class Z {}; class Y : Z {};", ClassHasBaseClassX));
+}
+
 TEST(HasType, TakesDeclMatcherAndMatchesExpr) {
   DeclarationMatcher ClassX = recordDecl(hasName("X"));
   EXPECT_TRUE(
@@ -335,6 +343,14 @@ TEST(HasType, TakesDeclMatcherAndMatchesValueDecl) {
     matches("class X {}; void y() { X x; }", varDecl(hasType(ClassX))));
   EXPECT_TRUE(
     notMatches("class X {}; void y() { X *x; }", varDecl(hasType(ClassX))));
+}
+
+TEST(HasType, TakesDeclMatcherAndMatchesCXXBaseSpecifier) {
+  DeclarationMatcher ClassX = recordDecl(hasName("X"));
+  CXXBaseSpecifierMatcher BaseClassX = cxxBaseSpecifier(hasType(ClassX));
+  DeclarationMatcher ClassHasBaseClassX = cxxRecordDecl(hasBase(BaseClassX));
+  EXPECT_TRUE(matches("class X {}; class Y : X {};", ClassHasBaseClassX));
+  EXPECT_TRUE(notMatches("class Z {}; class Y : Z {};", ClassHasBaseClassX));
 }
 
 TEST(HasType, MatchesTypedefDecl) {

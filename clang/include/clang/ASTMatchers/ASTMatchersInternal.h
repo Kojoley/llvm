@@ -130,6 +130,9 @@ inline QualType getUnderlyingType(const FriendDecl &Node) {
     return TSI->getType();
   return QualType();
 }
+inline QualType getUnderlyingType(const CXXBaseSpecifier &Node) {
+  return Node.getType();
+}
 
 /// Unifies obtaining the FunctionProtoType pointer from both
 /// FunctionProtoType and FunctionDecl nodes..
@@ -926,6 +929,7 @@ struct IsBaseType {
       std::is_same<T, TypeLoc>::value ||
       std::is_same<T, NestedNameSpecifier>::value ||
       std::is_same<T, NestedNameSpecifierLoc>::value ||
+      std::is_same<T, CXXBaseSpecifier>::value ||
       std::is_same<T, CXXCtorInitializer>::value;
 };
 template <typename T>
@@ -1094,7 +1098,7 @@ struct TypeListContainsSuperOf<EmptyTypeList, T> {
 /// Useful for matchers like \c anything and \c unless.
 using AllNodeBaseTypes =
     TypeList<Decl, Stmt, NestedNameSpecifier, NestedNameSpecifierLoc, QualType,
-             Type, TypeLoc, CXXCtorInitializer>;
+             Type, TypeLoc, CXXBaseSpecifier, CXXCtorInitializer>;
 
 /// Helper meta-function to extract the argument out of a function of
 ///   type void(Arg).

@@ -27,6 +27,7 @@ const ASTNodeKind::KindInfo ASTNodeKind::AllKindInfo[] = {
   { NKI_None, "NestedNameSpecifierLoc" },
   { NKI_None, "QualType" },
   { NKI_None, "TypeLoc" },
+  { NKI_None, "CXXBaseSpecifier" },
   { NKI_None, "CXXCtorInitializer" },
   { NKI_None, "NestedNameSpecifier" },
   { NKI_None, "Decl" },
@@ -163,6 +164,8 @@ void DynTypedNode::dump(llvm::raw_ostream &OS, SourceManager &SM) const {
 }
 
 SourceRange DynTypedNode::getSourceRange() const {
+  if (const CXXBaseSpecifier *CBS = get<CXXBaseSpecifier>())
+    return CBS->getSourceRange();
   if (const CXXCtorInitializer *CCI = get<CXXCtorInitializer>())
     return CCI->getSourceRange();
   if (const NestedNameSpecifierLoc *NNSL = get<NestedNameSpecifierLoc>())
