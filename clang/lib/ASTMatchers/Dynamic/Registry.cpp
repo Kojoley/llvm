@@ -172,6 +172,7 @@ RegistryMaps::RegistryMaps() {
   REGISTER_MATCHER(containsDeclaration);
   REGISTER_MATCHER(continueStmt);
   REGISTER_MATCHER(cudaKernelCallExpr);
+  REGISTER_MATCHER(cxxBaseSpecifier);
   REGISTER_MATCHER(cxxBindTemporaryExpr);
   REGISTER_MATCHER(cxxBoolLiteral);
   REGISTER_MATCHER(cxxCatchStmt);
