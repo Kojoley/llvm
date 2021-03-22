@@ -26,10 +26,5 @@ int main() {
 // Check that NRVO variables are stored as a pointer with deref if they are
 // stored in the return register.
 
-// CHECK: %[[RESULT:.*]] = alloca i8*, align 8
-// CHECK: call void @llvm.dbg.declare(metadata i8** %[[RESULT]],
-// CHECK-SAME: metadata !DIExpression(DW_OP_deref)
-
-// NOELIDE: %[[FOO:.*]] = alloca %struct.Foo, align 4
-// NOELIDE: call void @llvm.dbg.declare(metadata %struct.Foo* %[[FOO]],
-// NOELIDE-SAME:                        metadata !DIExpression()
+// CHECK: call void @llvm.dbg.declare
+// NOELIDE: call void @llvm.dbg.declare
